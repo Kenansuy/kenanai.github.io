@@ -1,56 +1,127 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <title>KenanAI</title>
-    <style>
-        body {
-            background: #0d0d0d;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 40px;
-        }
-        .box {
-            background: #1a1a1a;
-            padding: 20px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 400px;
-            margin: auto;
-        }
-        input, button {
-            width: 90%;
-            padding: 10px;
-            border: none;
-            margin-top: 10px;
-            border-radius: 5px;
-        }
-        button {
-            background: #4CAF50;
-            color: white;
-            font-size: 16px;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>KenanAI</title>
+<style>
+    body {
+        background: #0d0d0d;
+        color: white;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .header {
+        background: #1e1e1e;
+        padding: 15px;
+        text-align: center;
+        font-size: 26px;
+        font-weight: bold;
+        color: #00eaff;
+        box-shadow: 0 0 10px #00eaff;
+    }
+    #chatContainer {
+        padding: 15px;
+        height: 70vh;
+        overflow-y: auto;
+    }
+    .userMsg, .botMsg {
+        max-width: 75%;
+        padding: 10px 15px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        font-size: 15px;
+        line-height: 1.3;
+    }
+    .userMsg {
+        background: #007bff;
+        margin-left: auto;
+    }
+    .botMsg {
+        background: #222;
+        border: 1px solid #00eaff;
+        margin-right: auto;
+    }
+    .inputArea {
+        display: flex;
+        padding: 10px;
+        background: #1e1e1e;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .inputArea input {
+        flex: 1;
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        font-size: 16px;
+    }
+    .inputArea button {
+        margin-left: 10px;
+        padding: 10px 15px;
+        background: #00eaff;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>
 </head>
+
 <body>
 
-    <h1>KenanAI</h1>
-    <p>Benimle sohbet etmek için aşağıya yaz 🙂</p>
+<div class="header">KenanAI 🤖</div>
 
-    <div class="box">
-        <input id="msg" placeholder="Bir şey yaz...">
-        <button onclick="send()">Gönder</button>
-        <p id="reply"></p>
-    </div>
+<div id="chatContainer"></div>
 
-    <script>
-        function send() {
-            let text = document.getElementById("msg").value;
-            document.getElementById("reply").innerText = 
-                "AI: " + text + " mı? İlginçmiş 😄";
-        }
-    </script>
+<div class="inputArea">
+    <input id="userInput" type="text" placeholder="Bir şey yaz...">
+    <button onclick="send()">Gönder</button>
+</div>
+
+<script>
+    function send() {
+        let text = document.getElementById("userInput").value;
+        if (text.trim() === "") return;
+
+        addMessage(text, "user");
+        document.getElementById("userInput").value = "";
+
+        setTimeout(() => {
+            let reply = getAIResponse(text);
+            addMessage(reply, "bot");
+        }, 500);
+    }
+
+    function addMessage(msg, type) {
+        let box = document.createElement("div");
+        box.className = type === "user" ? "userMsg" : "botMsg";
+        box.innerText = msg;
+        document.getElementById("chatContainer").appendChild(box);
+        document.getElementById("chatContainer").scrollTop = 999999;
+    }
+
+    function getAIResponse(text) {
+        text = text.toLowerCase();
+
+        if (text.includes("selam") || text.includes("merhaba"))
+            return "Selam! Ben KenanAI, sana nasıl yardımcı olabilirim? 😎";
+
+        if (text.includes("nasılsın"))
+            return "Harikayım! Sen yazdıkça daha da güçleniyorum 🔥";
+
+        if (text.includes("adın ne"))
+            return "Ben KenanAI. Kenan’ın zekasıyla güçlendirilmiş özel bir yapay zekayım!";
+
+        if (text.includes("seni kim yaptı"))
+            return "Beni Kenan yaptı 😎 GitHub üzerinden inşa etti.";
+
+        return "Hmm... Bunu tam anlamadım ama öğreniyorum! 😁";
+    }
+</script>
 
 </body>
 </html>
