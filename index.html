@@ -1,9 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Kenan'ın Sitesi</title>
+    <meta charset="UTF-8">
+    <title>KenanAI</title>
+    <style>
+        body {
+            background: #0d0d0d;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 40px;
+        }
+        .box {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            margin: auto;
+        }
+        input, button {
+            width: 90%;
+            padding: 10px;
+            border: none;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Merhaba! Bu benim GitHub Pages sitem 😊</h1>
+
+    <h1>KenanAI</h1>
+    <p>Benimle sohbet etmek için aşağıya yaz 🙂</p>
+
+    <div class="box">
+        <input id="msg" placeholder="Bir şey yaz...">
+        <button onclick="send()">Gönder</button>
+        <p id="reply"></p>
+    </div>
+
+    <script>
+        function send() {
+            let text = document.getElementById("msg").value;
+            document.getElementById("reply").innerText = 
+                "AI: " + text + " mı? İlginçmiş 😄";
+        }
+    </script>
+
 </body>
 </html>
